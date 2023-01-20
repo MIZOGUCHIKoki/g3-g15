@@ -4,7 +4,7 @@
 @ If switch 1 is pressed, then r1 value is "0001".
 @ If switch 1 and 2 are pressed, then r1 value is "0011".
 @---------
-  .include  "common.s"
+  .include  "common.h"
   .section  .text
   .global   read_switch
 
