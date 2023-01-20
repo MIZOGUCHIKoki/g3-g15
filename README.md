@@ -17,6 +17,12 @@
 		- Turn LED on.
 	- `led_off`
 		- Turn LED off.
+- `display_row`
+	- File included: `display_row.s`
+	- import register: `{r4}`
+		- `r4` is row variable.
+	- import data    : `frame_buffer`
+	- return register: `notiong`
 # Builder
 - `Makefile`
 	- To build `program.img`, Run the following command.
