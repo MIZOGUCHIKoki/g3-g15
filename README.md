@@ -2,16 +2,16 @@
 - `Makefile`
 	- To build `program.img`, Run the following command.
 	```Bash
-$ make program.img
+	$ make program.img
 	```
 	- To remove some useless files (`*.o`, `*.img`, `*.elf`), run following command.
 	```Bash
-$ make clean
+	$ make clean
 	```
 - `media.sh`
 	-To transfer to microSD, run following command.
 	```Bash
-$ bash media.sh program
+	$ bash media.sh program
 	```
 
 # Subroutine
