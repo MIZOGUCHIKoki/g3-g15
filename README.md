@@ -19,4 +19,5 @@
 	- File inlcuded: `read_swtich.s`
 	- import register: `nothing`
 	- return register: `{r1}`
-
+		- If SW1, SW2 are pressed, `0011` is stored `r1`.
+		- If SW1, SW3 are pressed, `0101` is stored `r1`.
