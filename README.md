@@ -13,6 +13,9 @@
 	```Bash
 	$ bash media.sh program
 	```
+# Git
+- Ignored files
+	- `temp_*`
 
 # Subroutine
 - `read_switch.s`
