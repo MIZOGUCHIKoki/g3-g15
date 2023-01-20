@@ -4,12 +4,10 @@ OBJ = arm-none-eabi-objcopy
 LDFRAGS = -m armelf
 OBJFLAGS = -O binary
 
-
-
-%program: %.elf
+program.img:program.elf
 	$(OBJ) $< $(OBJFLAGS) $@
 	rm *.o *.elf 
-program.elf: program.o
+%.elf: program.o read_switch.o
 	$(LD) $(LDFRAGS) $+ -o $@
 %.elf: %.o 
 	$(LD) $(LDFRAGS) $< -o $@
