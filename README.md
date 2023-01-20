@@ -9,7 +9,7 @@
 	$ make clean
 	```
 - `media.sh`
-	-To transfer to microSD, run following command.
+	- To transfer to microSD, run following command.
 	```Bash
 	$ bash media.sh program
 	```
