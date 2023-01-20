@@ -6,18 +6,15 @@ OBJFLAGS = -O binary
 
 
 
-%.img: %.elf
+%program: %.elf
 	$(OBJ) $< $(OBJFLAGS) $@
 	rm *.o *.elf 
-ra.elf: program.o
+program.elf: program.o
 	$(LD) $(LDFRAGS) $+ -o $@
-
 %.elf: %.o 
 	$(LD) $(LDFRAGS) $< -o $@
-
 %.o: %.s 
 	$(AS) $< -o $@
-
 %: %.s
 
 .PHONY: clean
