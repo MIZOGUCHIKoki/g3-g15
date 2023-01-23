@@ -29,4 +29,3 @@ elif [ $USERNAME = "koki" ]; then
   mv ~/Documents/kernel7.img /Volumes/boot/
   diskutil unmount boot
 fi
-make clean
