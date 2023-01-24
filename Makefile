@@ -18,3 +18,4 @@ program.img:program.elf
 .PHONY: clean
 clean:
 	rm -f  *.img
+	reset
