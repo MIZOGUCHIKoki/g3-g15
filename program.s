@@ -2,13 +2,13 @@
 @ X {r0} : TIMER_BASE address.
 @ O {r1} : read_switch で上書きされる
 @ X {r2} : target_time header address.
-@ X {r3} : pase head address.
-@ X {r4} : r4 行目を表示する(pase 周期)
+@ X {r3} : frequency head address.
+@ X {r4} : r4 行目を表示する(dpr 周期)
 @ X {r5} : 更新目標時刻
 @ O {r6} : Current time 呼び出しに使う[何入れてもOK]
 @ X {r7} : 現在のスコアを管理(8 -> 0)
 @ X {r8} : OK Flag
-@ X {r9} : bit_bufferが何巡目か(0 <= r9 <= 10)
+@ X {r9} : bit_bufferが何巡目か(0 <= r9 <= 8)
 @ O {r10}: Free
 @ O {r11}: Free
 @ X {r12}: 
@@ -35,8 +35,9 @@ _start:
 	ldr		r6,		[r0, #GPFSEL1]
 	ldr		r1,		[r3]		@ from frequency
 	add		r5,		r6,	r1	@ set target time
-	bl		led_on
 loop:
+	bl		bit
+	bl		shift
 	disp:
 		ldr		r6,		[r0, #GPFSEL1]	@ r6 current
 		ldr		r1,		[r2]
@@ -54,7 +55,9 @@ update:
 		bcc		endp					@ Currnet < Target
 		ldr		r10,	[r3]		@ from frequency
 		add		r5,		r6,	r10	@ update target time
-		bl		led_off
+		add		r9,		r9,	#1  @ update bit_buffer 進捗管理
+		cmp		r9,		#8
+		moveq	r9,		#0
 endp:
 	bl		display_row
 	b			loop
@@ -65,7 +68,8 @@ frequency:
 target_time:
 	.word	0 @ display_low
 frame_buffer:
-	@.byte	0, 0, 0, 0, 0, 0, 0, 0
-	.byte 0x1e, 0x21, 0x4c, 0x92, 0x49, 0x22,0x14, 0x08
+	.byte	0, 0, 0, 0, 0, 0, 0, 0
+	@ debug uzu data
+	@.byte 0x1e, 0x21, 0x4c, 0x92, 0x49, 0x22,0x14, 0x08
 bit_buffer:
-	.byte	1,2,3,4,5,6,7,8,9,10,11
+	.byte	1,2,3,4,5,6,7,8,9
