@@ -26,13 +26,13 @@ shift:
 	mov	r10, #6
 frame_shift:
 	@this frame_shift chage from B~G to C~H.
-	ldr	r12, [r6, r10]
+	ldrb	r12, [r6, r10]
 	add	r11, r10, #1
-	str	r12, [r6, r11]
+	strb	r12, [r6, r11]
 	sub	r10, r10, #1
 	cmp	r10, #0
 	bne	frame_shift
 	@Bを0にする場合
-	@str	r10, [r6, #1]	
+	@strb	r10, [r6, #1]	
 END:
 	bx	r14
