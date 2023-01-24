@@ -20,7 +20,7 @@
 	.global clear, miss
 
 clear:
-	push	{r2 - r4}
+	push	{r2 - r4,r14}
 	ldr	r6, =TIMER_HZ
 	ldr	r10, [r0, #GPFSEL1]		@点灯タスク目標時刻 (現在時刻)
 	add	r11, r10, r6			@消灯タスク目標時刻
@@ -29,20 +29,24 @@ clear:
 	@Ok Flagを1にする
 	mov 	r8,	#1
 	ldr	r2,	=GPIO_BASE
-	ldr	r3,	#2
+	mov	r3,	#2
+loop:
+	ldr	r4,	=0xff
 	@LEDを0.1秒周期で点滅三回させる
-loop:	
-	ldr	r10, [r0, #GPFSEL1]	@(TIMER_BASE + CLO)番地から読み出し
-	tst	r12, #(1 << 16)
 	strne	r1, [r2, #GPSET0]	@1であれば点灯
-	subne	r3, r3,#1
+loop0:	
+	subs	r4,	r4	#1
+	bne	loop0
 	streq	r1, [r2, #GPCLR0]	@0であれば消灯
-	cmp	r3,	#0
-	popeq	{r2 - r4}
-	bxeq	r14
-	b	loop
+	ldr	r4,	=0xff
+loop1:
+	subs	r4,	r4,	#1
+	bne	loop1
+	subs	r3,	r3,	#1
+	bne	loop
 
-
+	pop	{r2 - r4,r14}
+	bx	r14
 
 miss:
 	@条件を満たさなかった場合行う
