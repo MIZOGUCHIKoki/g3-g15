@@ -23,7 +23,7 @@ _start:
 	ldr		r2,		=target_time	@ 目標時刻先頭アドレス
 	ldr		r3,		=frequency		@ 周期先頭データ先頭データ
 	mov		r4,		#0						@ display_row
-	mov		r7,		#0						@ 現在スコア
+	mov		r7,		#8						@ 現在スコア
 	mov		r8,		#0						@ OK Flag
 	mov		r9,		#0						@ bit_buffer進捗管理
 	@	display_low 初期目標時刻設定
@@ -59,17 +59,19 @@ update:
 		cmp		r9,		#8
 		moveq	r9,		#0
 endp:
+	
 	bl		display_row
 	b			loop
 
 frequency:
-	.word	1000*500	@ 0.5sec
+	.word	1000*1000	@ 0.5sec
+	.word 
 	.section	.data
 target_time:
 	.word	0 @ display_low
 frame_buffer:
-	.byte	0, 0, 0, 0, 0, 0, 0, 0
+	.byte	0xff, 0, 0, 0, 0, 0, 0, 0
 	@ debug uzu data
 	@.byte 0x1e, 0x21, 0x4c, 0x92, 0x49, 0x22,0x14, 0x08
 bit_buffer:
-	.byte	1,2,3,4,5,6,7,8,9
+	.byte	0x81, 0x2a, 0x0, 0x29, 0x77, 0x0, 0x19, 0x0
