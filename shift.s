@@ -4,14 +4,14 @@
 @   {r2} : free.
 @   {r3} : free.
 @   {r4} : free.
-@   {r5} : target_time.
-@   {r6} : current_time. and frame_buffer address.
+@ X {r5} : target_time.
+@ X {r6} : current_time. and frame_buffer address.
 @   {r7} : free.
 @   {r8} : free.
 @   {r9} : free.
 @   {r10}: free.
 @   {r11}: free.
-@   {r12}: frame_buffer 'ldr or str'
+@ X {r12}: frame_buffer 'ldr or str'
 	
 	.include "common.h"
 	.section .text
