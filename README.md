@@ -2,7 +2,7 @@
 - `common.h`
 	- Definition collection.
 - `settings.s`
-	
+	- Set I/O port.
 - `read_switch`
 	- File inlcuded: `read_swtich.s`
 	- import register: `nothing`
@@ -36,9 +36,8 @@
 - `media.sh`
 	- To transfer to microSD, run following command.
 	```Bash
-	$ bash media.sh program
+	$ bash media.sh
 	```
 # Git
-- Ignored files
+- Following files are ignored on git.
 	- `temp_*`
-
