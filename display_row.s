@@ -4,7 +4,7 @@
 @ input register : r4 [row variable]
 	.include	"common.h"
 	.section 	.text
-	.global 	display_row, clear
+	.global 	display_row
 display_row:
 	push	{r0 - r12, r14}
 
