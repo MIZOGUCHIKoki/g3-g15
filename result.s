@@ -35,7 +35,7 @@ loop:
 	@LEDを0.1秒周期で点滅三回させる
 	strne	r1, [r2, #GPSET0]	@1であれば点灯
 loop0:	
-	subs	r4,	r4	#1
+	subs	r4,	r4,	#1
 	bne	loop0
 	streq	r1, [r2, #GPCLR0]	@0であれば消灯
 	ldr	r4,	=0xff
