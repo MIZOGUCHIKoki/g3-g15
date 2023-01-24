@@ -1,11 +1,11 @@
 @ Free & Reserved Register
-@	X {r0} : TIMER_BASE address.
-@	O {r1} : read_switch で上書きされる
-@	X {r2} : target_time header address.
+@ X {r0} : TIMER_BASE address.
+@ O {r1} : read_switch で上書きされる
+@ X {r2} : target_time header address.
 @ X {r3} : pase head address.
-@	X {r4} : r4 行目を表示する(pase 周期)
+@ X {r4} : r4 行目を表示する(pase 周期)
 @ X {r5} : 更新目標時刻
-@	O {r6} : Current time 呼び出しに使う[何入れてもOK]
+@ O {r6} : Current time 呼び出しに使う[何入れてもOK]
 @ X {r7} : 現在のスコアを管理(8 -> 0)
 @ X {r8} : OK Flag
 @ X {r9} : bit_bufferが何巡目か(0 <= r9 <= 10)
@@ -64,7 +64,6 @@ frequency:
 	.section	.data
 target_time:
 	.word	0 @ display_low
-	.word	0 @ game_update
 frame_buffer:
 	@.byte	0, 0, 0, 0, 0, 0, 0, 0
 	.byte 0x1e, 0x21, 0x4c, 0x92, 0x49, 0x22,0x14, 0x08
