@@ -59,16 +59,16 @@ update:
 		cmp		r9,		#8
 		moveq	r9,		#0
 endp:
-	
 	bl		display_row
 	b			loop
 
 frequency:
 	.word	1000*1000	@ 0.5sec
-	.word 
 	.section	.data
 target_time:
 	.word	0 @ display_low
+	.word	0 @ led_flash_on
+	.word	0 @ led_flash_off
 frame_buffer:
 	.byte	0xff, 0, 0, 0, 0, 0, 0, 0
 	@ debug uzu data
