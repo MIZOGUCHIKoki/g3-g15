@@ -10,16 +10,13 @@
 	.section	.text
 	.global		bit
 bit:
-	push	{r14}
 	ldr		r6,		[r0, #GPFSEL1]
 	cmp		r5,		r6
 	bcc		endp
 	ldr		r11,	=bit_buffer
 	ldr		r12,	=frame_buffer
-	ldrb	r10,	[r10, r9]
+	ldrb	r10,	[r11, r9]
 	mov		r6,		#1
-	bl		clear
 	strb	r10,	[r12, r6]
 endp:
-	pop		{r14}
 	bx		r14
