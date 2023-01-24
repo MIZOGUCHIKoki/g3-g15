@@ -19,7 +19,7 @@
 shift:
 	ldr	r6, [r0, #GPFSEL1]	@current_time
 	cmp	r6, r5			@if r6 is less than r5, jump END.
-	bmi	END
+	bcc	END
 	
 	@frame_buffer shift
 	ldr	r6, =frame_buffer
