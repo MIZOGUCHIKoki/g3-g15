@@ -31,7 +31,7 @@ frame_shift:
 	str	r12, [r6, r11]
 	sub	r10, r10, #1
 	cmp	r10, #0
-	bnq	frame_shift
+	bne	frame_shift
 	@Bを0にする場合
 	@str	r10, [r6, #1]	
 END:
