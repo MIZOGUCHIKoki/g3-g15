@@ -1,4 +1,15 @@
-# Subroutine & files
+# Subroutine & file
+- `program.s`
+	Main program file. Update target time.
+- `bit.s`
+	Dislpay radam bit strings on LED display row2.
+- `shift.s`
+	Shift row1 bit strings for below rows.
+- `judge.s`
+	Judge from switch and display status.
+- `result.s`
+	Flushing LED and operate LED gauge.(display row1)
+## debug and display
 - `common.h`
 	- Definition collection.
 - `settings.s`
