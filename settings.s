@@ -2,7 +2,6 @@
 	.section	.text
 	.global		settings
 settings:
-	push	{r0, r1}
 	ldr	r0,	=GPIO_BASE
 	ldr	r1, =GPFSEL_VEC0
 	str	r1, [r0, #GPFSEL0 + 0]
@@ -28,5 +27,4 @@ settings:
 	ldr	r1,	=(1 << PWM_PWEN2 | 1 << PWM_MSEN2)
 	str	r1,	[r0, #PWM_CTL]
 	
-	pop	{r0, r1}
 	bx	r14
