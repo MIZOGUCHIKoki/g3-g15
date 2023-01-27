@@ -8,12 +8,11 @@ judge:
 	ldrb	r2,	[r0, #7]
 	bl	read_switch		@r1
 
-	ldr	r4,	=TIMER_BASE
-	ldr	r5,	=100000	
-	ldr	r6,	[r4, #GPFSEL1]	@start_time
-	add	r7,	r6,	r5	@time1
-	mov	r10,	#0
-
+	ldr	r0,	=TIMER_BASE
+	ldr	r3,	=100000
+	ldr	r4,	[r0, #GPFSEL1]
+	add	r5,	r4,	r3
+	mov	r7,	#0
 	
 	cmp	r8,	#0
 	bxne	r14
@@ -26,39 +25,36 @@ if1:
 	b	jumpmiss
 
 if2:
-	cmp	r1,	#0
-	bne	if3
-	tst	r2,	#224
-	beq	jumpclear
-	b	jumpmiss
-
-if3:
 	cmp	r1,	#2
-	bne	if4
+	bne	if3
 	tst	r2,	#7	@00000111
 	bne	jumpclear
 	b	jumpmiss
-
-if4:	
-	cmp	r1,	#0
-	bne	jumpmiss
+	
+if3:
+	tst	r2,	#224
+	beq	end
 	tst	r2,	#7
-	beq	jumpclear
+	beq	end
 	b	jumpmiss
 
 jumpclear:
-	ldr	r9,	[r4, #GPFSEL1]
-	cmp	r6,	r9
+	bl	clear
+	ldr	r6,	[r0, #GPFSEL1]
+	cmp	r4,	r6
+	addcc	r4,	r4,	r3
+	addcc	r7,	r7,	#1
 	blcc	led_on
-	addcc	r6,	r6,	r5
-	addcc	r10,	r10,	#1
-	cmp	r7,	r9
+
+	cmp	r5,	r6
+	addcc	r5,	r5,	r3
 	blcc	led_off
-	addcc	r7,	r7,	r5
-	cmp	r10,	#4
-	bne	jumpclear
+	cmp	r7,	#3
+	bne 	jumpclear
+	
 	b	end
 jumpmiss:
+	bl	miss
 	b	end
 
 end:
