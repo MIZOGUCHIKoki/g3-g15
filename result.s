@@ -34,6 +34,6 @@ miss:
 	ldr	r10,=frame_buffer
 	ldrb	r11,[r10]
 	lsl	r11,r11,#1
-	str	r11,[r10]
+	strb	r11,[r10]
 
 	bx	r14
