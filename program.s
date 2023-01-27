@@ -54,7 +54,7 @@ update:
 		cmp		r6,		r5			@	Current, Target
 		bcc		endp					@ Currnet < Target
 		ldr		r10,	[r3]		@ from frequency
-		add		r5,		r6,	r10	@ update target time
+		add		r5,		r5,	r10	@ update target time
 		add		r9,		r9,	#1  @ update bit_buffer 進捗管理
 		cmp		r9,		#49
 		moveq	r9,		#0
