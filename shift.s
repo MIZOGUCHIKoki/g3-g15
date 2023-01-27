@@ -23,19 +23,14 @@ shift:
 	
 	@frame_buffer shift
 	ldr	r6, =frame_buffer
-	mov	r11, #0
+	mov	r10, #6
 frame_shift:
-	@this frame_shift chage from A~G to B~H.
-	@ldrb	r12, [r6, r10]
-	@add	r11, r10, #1
-	@strb	r12, [r6, r11]
-	@sub	r10, r10, #1
-	@cmp	r10, #0
-	@bne	frame_shift
-	ldrb	r12, [r6, r11]
-	add	r10, r11, #1
+	@this frame_shift chage from B~G to C~H.
+	ldrb	r12, [r6, r10]
+	add	r11, r10, #1
 	strb	r12, [r6, r11]
-	cmp	r11, #7
+	sub	r10, r10, #1
+	cmp	r10, #0
 	bne	frame_shift
 	@Bを0にする場合
 	@strb	r10, [r6, #1]	
