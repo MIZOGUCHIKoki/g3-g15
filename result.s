@@ -33,7 +33,7 @@ miss:
 	@(A)の体力ゲージを左から一つ減らす（frame_bufferに書き込む）
 	ldr	r10,=frame_buffer
 	ldrb	r11,[r10]
-	ldr	r11,r11,lsl #1
+	lsl	r11,r11,#1
 	str	r11,[r10]
 
 	bx	r14
