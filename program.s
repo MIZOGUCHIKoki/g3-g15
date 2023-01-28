@@ -36,34 +36,25 @@ _start:
 	ldr		r1,		[r3]		@ from frequency
 	add		r5,		r6,	r1	@ set target time
 loop:
-	bl		bit
 	bl		shift
-	disp:
-		ldr		r6,		[r0, #GPFSEL1]	@ r6 current
-		ldr		r1,		[r2]
-		cmp		r6,		r1			@	Current, Target
-		bcc		update				@ Currnet < Target
-		mov		r10,	#dpr	
-		add		r6,		r1,	r10	@ update target time
-		str		r6,		[r2]		@ update target time
-		add		r4,		r4,	#1
-		cmp		r4,		#8
-		moveq	r4,		#0
-update:
-		ldr		r6,		[r0, #GPFSEL1]	@ r6 current
-		cmp		r6,		r5			@	Current, Target
-		bcc		endp					@ Currnet < Target
-		ldr		r10,	[r3]		@ from frequency
-		add		r5,		r6,	r10	@ update target time
-		add		r9,		r9,	#1  @ update bit_buffer 進捗管理
-		cmp		r9,		#49
-		moveq	r9,		#0
+	bl		bit
+disp:
+	ldr		r6,		[r0, #GPFSEL1]	@ r6 current
+	ldr		r1,		[r2]		@ load target time
+	cmp		r6,		r1			@	Current, Target
+	bcc		endp					@ Currnet < Target
+	mov		r10,	#dpr	
+	add		r6,		r1,	r10	@ update target time
+	str		r6,		[r2]		@ update target time
+	add		r4,		r4,	#1
+	cmp		r4,		#8
+	moveq	r4,		#0
 endp:
 	bl		display_row
 	b			loop
 
 frequency:
-	.word	1000*1000	@ 0.5sec
+	.word	100*1000	@ 0.5sec
 	.section	.data
 target_time:
 	.word	0 @ display_low

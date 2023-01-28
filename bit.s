@@ -10,9 +10,6 @@
 	.section	.text
 	.global		bit
 bit:
-	ldr		r6,		[r0, #GPFSEL1]
-	cmp		r5,		r6
-	bcc		endp
 	ldr		r11,	=bit_buffer
 	ldr		r12,	=frame_buffer
 	ldrb	r10,	[r11, r9]
