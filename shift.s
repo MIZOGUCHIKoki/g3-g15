@@ -17,10 +17,6 @@
 	.section .text
 	.global shift
 shift:
-	ldr	r6, [r0, #GPFSEL1]	@current_time
-	cmp	r5, r6		@if r6 is less than r5, jump END.
-	bcc	END
-	
 	@frame_buffer shift
 	ldr	r6, =frame_buffer
 	mov	r10, #6
@@ -32,7 +28,5 @@ frame_shift:
 	sub	r10, r10, #1
 	cmp	r10, #0
 	bne	frame_shift
-	@Bを0にする場合
-	@strb	r10, [r6, #1]	
 END:
 	bx	r14

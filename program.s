@@ -36,8 +36,12 @@ _start:
 	ldr		r1,		[r3]		@ from frequency
 	add		r5,		r6,	r1	@ set target time
 loop:
-	bl		bit
-	bl		shift
+	ldr	r6, [r0, #GPFSEL1]	@current_time
+	cmp	r5, r6		@if r6 is less than r5, jump END.
+	blcs	shift
+	ldr	r6, [r0, #GPFSEL1]	@current_time
+	cmp	r5, r6		@if r6 is less than r5, jump END.
+	blcs	bit
 	disp:
 		ldr		r6,		[r0, #GPFSEL1]	@ r6 current
 		ldr		r1,		[r2]
@@ -56,14 +60,14 @@ update:
 		ldr		r10,	[r3]		@ from frequency
 		add		r5,		r5,	r10	@ update target time
 		add		r9,		r9,	#1  @ update bit_buffer 進捗管理
-		cmp		r9,		#49
+		cmp		r9,		#48
 		moveq	r9,		#0
 endp:
 	bl		display_row
 	b			loop
 
 frequency:
-	.word	1000*1000	@ 0.5sec
+	.word	100*1000	@ 0.5sec
 	.section	.data
 target_time:
 	.word	0 @ display_low
