@@ -18,7 +18,7 @@
 	.global shift
 shift:
 	@frame_buffer shift
-	ldr	r6, [#GPFSEL1]
+	ldr	r6, [r0, #GPFSEL1]
 	cmp	r6, r5
 	bxcc	r14
 	ldr	r10, [r3]
