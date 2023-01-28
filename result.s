@@ -28,7 +28,7 @@ clear:
 miss:
 	@条件を満たさなかった場合行う
 	cmp	r10,#1
-	bne	nothig
+	bne	nothing
 	@r7のスコアから１引く
 	sub	r7,r7,#1
 
