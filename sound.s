@@ -1,4 +1,4 @@
-	.include	"common.s"
+	.include	"common.h"
 	.section	.text
 	.global		sound
 sound:
