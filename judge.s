@@ -35,6 +35,9 @@ if3:
 jumpclear:
 	bl	clear
 	bl	led_on
+	bl	led_off
+	bl	led_on
+	bl	led_off
 	b	end
 jumpmiss:
 	bl	miss
