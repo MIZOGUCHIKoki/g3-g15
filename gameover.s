@@ -8,12 +8,12 @@ gameover:
 
 	ldr	r0,	=TIMER_BASE
 	
-	ldr	r2,	=soundData
-	ldr	r3,	=sound_longData
-	ldr	r4,	=sound2
-	ldr	r5,	=sound_long
+	ldr	r2,	=soundData_2
+	ldr	r3,	=sound_longData_2
+	ldr	r4,	=sound2_2
+	ldr	r5,	=sound_long_2
 
-	ldr	r7,	=count
+	ldr	r7,	=count_2
 	ldrb	r6, 	[r7]
 
 	ldr	r12,	=PWM_BASE
@@ -31,7 +31,7 @@ ON:
 	lsrne	r9,	r9, 	#1
 	strne	r9,	[r12, #PWM_DAT2]
 
-	ldr	r7,	=time
+	ldr	r7,	=time_2
 	ldr	r1,	[r7]
 	ldr	r11,	[r0, #GPFSEL1]
 	
@@ -48,7 +48,7 @@ ON:
 	strcc	r1,	[r7, #4]
 	cmp	r6,	#31
 	moveq	r6,	#0
-	ldr	r7,	=count
+	ldr	r7,	=count_2
 	strb	r6,	[r7]
 
 	pop	{r0-r12, r14}
@@ -58,21 +58,21 @@ ON:
 
 
 	.section	.data
-	.global		soundData, sound_longData, time, sound2, sound_long, count
-soundData:
+	.global		soundData_2, sound_longData_2, time_2, sound2_2, sound_long_2, count_2
+soundData_2:
 	@シ4,ド5,レ5,ミ5,ファ5
 	.word	19472, 18355, 16354, 14567, 13753,
-sound_longData:
+sound_longData_2:
 	.word	700000, 230000, 120000, 350000
-time:
+time_2:
 	.word 	0x00, 0x00
 
-sound2:
+sound2_2:
 	.byte	0,4,4,4,3,2,1
-sound_long:
+sound_long_2:
 	.byte	0,0,3,0,0,3,3
 
-count:
+count_2:
 	.byte	0
 	
 @シ4,ファ5,ファ5,ファ5,ミ5,レ5,ド5
