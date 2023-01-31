@@ -22,6 +22,7 @@ _start:
 	ldr		r0,		=TIMER_BASE
 	ldr		r2,		=target_time	@ 目標時刻先頭アドレス
 	ldr		r3,		=frequency		@ 周期先頭データ先頭データ
+reset:
 	mov		r4,		#0						@ display_row
 	mov		r7,		#8						@ 現在スコア
 	mov		r8,		#0						@ OK Flag
@@ -63,7 +64,7 @@ endp:
 
 game_over:
 	bl		read_switch
-	cmp		r1,		#4
+	cmp		r1,		#4			@ SW3 == 1
 	beq		reset
 	b			game_over
 
