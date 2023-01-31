@@ -44,8 +44,8 @@ disp:
 	ldr		r1,		[r2]		@ load target time
 	cmp		r6,		r1			@	Current, Target
 	bcc		endp					@ Currnet < Target
-	mov		r10,	#dpr	
-	add		r6,		r1,	r10	@ update target time
+	mov		r11,	#dpr	
+	add		r6,		r1,	r11	@ update target time
 	str		r6,		[r2]		@ update target time
 	add		r4,		r4,	#1
 	cmp		r4,		#8
@@ -67,7 +67,10 @@ game_over:
 	b			game_over
 
 frequency:
-	.word	1000*1000
+	.word	1500*1000	@ 1.50 sec
+	.word	1250*1000	@	1.25 sec
+	.word	1000*1000	@ 1.00 sec
+	.word	750*1000	@ 0.75 sec
 	.section	.data
 target_time:
 	.word	0 @ display_low
