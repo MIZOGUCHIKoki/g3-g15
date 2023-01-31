@@ -7,7 +7,7 @@ OBJFLAGS = -O binary
 program.img:program.elf
 	$(OBJ) $< $(OBJFLAGS) $@
 	rm *.o *.elf 
-%.elf: program.o read_switch.o display_row.o debug.o settings.o bit.o shift.o result.o judge.o
+%.elf: program.o read_switch.o display_row.o debug.o settings.o bit.o shift.o result.o judge.o sound.o
 	$(LD) $(LDFRAGS) $+ -o $@
 %.elf: %.o 
 	$(LD) $(LDFRAGS) $< -o $@

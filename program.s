@@ -9,7 +9,7 @@
 @ X {r7} : 現在のスコアを管理(8 -> 0)
 @ X {r8} : OK Flag
 @ X {r9} : bit_bufferが何巡目か(0 <= r9 <= 8)
-@ O {r10}: Free
+@ X {r10}: Miss Flag
 @ O {r11}: Free
 @ O {r12}: Free
 	.equ			dpr,		1000
@@ -35,7 +35,8 @@ _start:
 	ldr		r6,		[r0, #GPFSEL1]
 	ldr		r1,		[r3]		@ from frequency
 	add		r5,		r6,	r1	@ set target time
-loop:
+main:
+	bl 		sound
 	bl		shift
 	bl		bit
 disp:
@@ -50,11 +51,23 @@ disp:
 	cmp		r4,		#8
 	moveq	r4,		#0
 endp:
+	@ judge game_over
+	ldr		r11,	=frame_buffer
+	ldr		r6,		[r11]
+	cmp		r6,		#0
+	beq		game_over
+
 	bl		display_row
-	b			loop
+	b			main
+
+game_over:
+	bl		read_switch
+	cmp		r1,		#4
+	beq		main
+	b			game_over
 
 frequency:
-	.word	100*1000	@ 0.5sec
+	.word	1000*1000
 	.section	.data
 target_time:
 	.word	0 @ display_low
