@@ -46,7 +46,7 @@ ON:
 	addcc	r6,	r6,	#1
 	addcc	r1,	r1,	r10
 	strcc	r1,	[r7, #4]
-	cmp	r6,	#31
+	cmp	r6,	#7
 	moveq	r6,	#0
 	ldr	r7,	=count_2
 	strb	r6,	[r7]
@@ -75,4 +75,4 @@ sound_long_2:
 count_2:
 	.byte	0
 	
-@シ4,ファ5,ファ5,ファ5,ミ5,レ5,ド5
+@マリオが死んだ時の音楽：シ4,ファ5,ファ5,ファ5,ミ5,レ5,ド5
