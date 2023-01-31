@@ -1,4 +1,4 @@
-	.include	"common.s"
+	.include	"common.h"
 	.section	.text
 	.global		gameover
 gameover:
@@ -60,19 +60,19 @@ ON:
 	.section	.data
 	.global		soundData, sound_longData, time, sound2, sound_long, count
 soundData:
-	.word	18355, 16354, 14567, 13753, 12244, 10909, 9726, 9177, 0
-
+	@シ4,ド5,レ5,ミ5,ファ5
+	.word	19472, 18355, 16354, 14567, 13753,
 sound_longData:
 	.word	700000, 230000, 120000, 350000
-
 time:
 	.word 	0x00, 0x00
 
 sound2:
-	.byte	2,2,2,1,1,1, 0,1,2,3,2,1, 2,3,4,5,7,5, 4,3,2,1,1,1, 2,2,2,2,0,2, 1
+	.byte	0,4,4,4,3,2,1
 sound_long:
-	.byte	3,2,1,1,1,1, 1,1,1,1,1,1, 1,1,1,1,1,1, 1,1,1,3,2,1, 3,2,1,1,1,1, 0
+	.byte	0,0,3,0,0,3,3
 
 count:
 	.byte	0
 	
+@シ4,ファ5,ファ5,ファ5,ミ5,レ5,ド5
