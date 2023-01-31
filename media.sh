@@ -5,22 +5,22 @@ USERNAME=$(whoami)
 if [ $USERNAME = "250373b" ]; then
 	echo -e "\e[31m MIZOGUCHI on WS-Linux \e[m"
 	make
-  cp $1.img ~/tsclient/boot/kernel7.img
+  cp program.img ~/tsclient/boot/kernel7.img
 	make clean
 elif [ $USERNAME = "250372y" ]; then
 	echo -e "\e[31m MIKAMI on WS-Linux \e[m"
 	make
-  cp $1.img /media/$USERNAME/boot/kernel7.img
+  cp program.img /media/$USERNAME/boot/kernel7.img
 	make clean
-elif [ $USERNAME = "250341zy" ]; then
+elif [ $USERNAME = "250341z" ]; then
 	echo -e "\e[31m TANAKA on WS-Linux \e[m"
 	make
-  cp $1.img /media/$USERNAME/boot/kernel7.img
+  cp program.img /media/$USERNAME/boot/kernel7.img
 	make clean
-elif [ $USERNAME = "250372y" ]; then
-	echo -e "\e[31m 250382g on WS-Linux \e[m"
+elif [ $USERNAME = "250382g" ]; then
+	echo -e "\e[31m YAMADA on WS-Linux \e[m"
 	make
-  cp $1.img /media/$USERNAME/boot/kernel7.img
+  cp program.img /media/$USERNAME/boot/kernel7.img
 	make clean
 elif [ $USERNAME = "koki" ]; then
 	echo -e "MIZOGUCHI on Mac"
