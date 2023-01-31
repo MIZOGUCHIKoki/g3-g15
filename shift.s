@@ -21,6 +21,7 @@ shift:
 	ldr	r6, [r0, #GPFSEL1]
 	cmp	r6, r5
 	bxcc	r14
+	push	{r10}
 	ldr	r10, [r3]
 	add	r5, r5, r10
 	add	r9, r9, #1
@@ -38,4 +39,5 @@ frame_shift:
 	cmp	r10, #0
 	bne	frame_shift
 END:
+	pop	{r10}
 	bx	r14
