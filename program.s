@@ -23,6 +23,18 @@ _start:
 	ldr		r2,		=target_time	@ 目標時刻先頭アドレス
 	ldr		r3,		=frequency		@ 周期先頭データ先頭データ
 reset:
+	@ Reset sound
+	ldr		r4,		=count
+	mov		r7,		#0
+	strb	r7,		[r4]
+	@ Reset display
+	ldr		r4,		=frame_init
+	ldr		r8,		=frame_buffer
+	ldr		r7,		[r4]
+	str		r7,		[r8]
+	ldr		r7,		[r4, #4]
+	str		r7,		[r8, #4]
+
 	mov		r4,		#0						@ display_row
 	mov		r7,		#8						@ 現在スコア
 	mov		r8,		#0						@ OK Flag
@@ -37,6 +49,11 @@ reset:
 	ldr		r1,		[r3]		@ from frequency
 	add		r5,		r6,	r1	@ set target time
 main:
+	@ RESET
+	bl		read_switch
+	cmp		r1,		#4
+	beq		reset
+
 	bl 		sound
 	bl		judge
 	bl		shift
@@ -87,3 +104,5 @@ bit_buffer:
 	.byte 0x10, 0x02, 0x09, 0x30, 0x48, 0x24, 0x18, 0x00
 	.byte 0x02, 0x00, 0x80, 0x48, 0x08, 0x18, 0x81, 0x00
 	.byte 0x40, 0x11, 0x08, 0x30, 0x50, 0x14, 0x01, 0x00
+frame_init:
+	.byte	0xff, 0, 0, 0, 0, 0, 0, 0
