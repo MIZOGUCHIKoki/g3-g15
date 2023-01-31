@@ -37,6 +37,7 @@ _start:
 	add		r5,		r6,	r1	@ set target time
 main:
 	bl 		sound
+	bl		judge
 	bl		shift
 	bl		bit
 disp:
