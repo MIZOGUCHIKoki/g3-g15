@@ -64,7 +64,7 @@ endp:
 game_over:
 	bl		read_switch
 	cmp		r1,		#4
-	beq		main
+	beq		reset
 	b			game_over
 
 frequency:
