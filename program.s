@@ -34,6 +34,14 @@ reset:
 	str		r7,		[r8]
 	ldr		r7,		[r4, #4]
 	str		r7,		[r8, #4]
+	@ Stop sound
+	ldr		r4,		=PWM_BASE
+	mov		r7,		#0
+	str		r7,		[r4, #PWM_DAT2]
+	ldr		r4,		=0xffff
+wloop:
+	subs	r4,		r4,	#1
+	bne		wloop
 
 	mov		r4,		#0						@ display_row
 	mov		r7,		#8						@ 現在スコア
@@ -58,6 +66,8 @@ main:
 	bl		judge
 	bl		shift
 	bl		bit
+	cmp		r9,	#8
+	beq		game_over
 disp:
 	ldr		r6,		[r0, #GPFSEL1]	@ r6 current
 	ldr		r1,		[r2]		@ load target time
@@ -83,6 +93,7 @@ game_over:
 	bl		read_switch
 	cmp		r1,		#4			@ SW3 == 1
 	beq		reset
+	bl		gameover
 	b			game_over
 
 frequency:
