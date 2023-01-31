@@ -61,7 +61,7 @@ ON:
 	.global		soundData_2, sound_longData_2, time_2, sound2_2, sound_long_2, count_2
 soundData_2:
 	@シ4,ド5,レ5,ミ5,ファ5
-	.word	19472, 18355, 16354, 14567, 13753,
+	.word	19472, 18355, 16354, 14567, 13753
 sound_longData_2:
 	.word	700000, 230000, 120000, 350000
 time_2:
