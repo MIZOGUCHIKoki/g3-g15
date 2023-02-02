@@ -60,10 +60,9 @@ wloop:
 	ldr		r1,		[r3]		@ from frequency
 	add		r5,		r6,	r1	@ set target time
 main:
-	@ RESET
-	bl		read_switch
-	cmp		r1,		#4
-	beq		reset
+	@ judge game_over
+	cmp		r7,		#0
+	beq		game_over
 
 	bl 		sound
 	bl		judge
@@ -81,12 +80,6 @@ disp:
 	cmp		r4,		#8
 	moveq	r4,		#0
 endp:
-	@ judge game_over
-	ldr		r11,	=frame_buffer
-	ldr		r6,		[r11]
-	cmp		r6,		#0
-	beq		game_over
-
 	bl		display_row
 	b			main
 
@@ -94,7 +87,6 @@ game_over:
 	bl		read_switch
 	cmp		r1,		#4			@ SW3 == 1
 	beq		reset
-	bl		gameover
 	b			game_over
 
 frequency:
