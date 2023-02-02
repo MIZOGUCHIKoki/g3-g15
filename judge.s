@@ -24,7 +24,7 @@ judge:
 	bl	read_switch		@r1
 
 	cmp	r8,	#0
-	bxne	clear_led
+	bne	clear_led
 
 if1:	
 	cmp	r1,	#1
