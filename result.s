@@ -26,6 +26,7 @@ clear:
 
 
 miss:
+	push	{r10}
 	@条件を満たさなかった場合行う
 	cmp	r10,#1
 	bne	nothing
@@ -37,5 +38,6 @@ miss:
 	ldrb	r11,[r10]
 	lsl	r11,r11,#1
 	strb	r11,[r10]
-nothing:	
+nothing:
+	pop	{r10}
 	bx	r14
