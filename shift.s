@@ -21,15 +21,15 @@ shift:
 	ldr	r6, [r0, #GPFSEL1]
 	cmp	r6, r5
 	bxcc	r14
+	mov		r8,		#0		@ OK Flag
+	mov		r10,	#0		@ Miss Flag
 	push	{r10}
 	ldr	r10, [r3]
 	add	r5, r5, r10
 	add	r9, r9, #1
 	cmp	r9, #48
 	moveq	r9, #0
-@ Update flags
-	mov		r8,		#0		@ OK Flag
-	mov		r10,	#0		@ Miss Flag
+@ Initialize flags
 @frame_buffer shift 
 	ldr	r6, =frame_buffer
 	mov	r10, #6
