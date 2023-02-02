@@ -22,6 +22,9 @@ _start:
 	ldr		r0,		=TIMER_BASE
 	ldr		r2,		=target_time	@ 目標時刻先頭アドレス
 	ldr		r3,		=frequency		@ 周期先頭データ先頭データ
+	ldr		r4,		[r0, #GPFSEL1]
+	ldr		r7,		=time
+	str		r4,		[r7]
 reset:
 	@ Reset sound
 	ldr		r4,		=count
@@ -66,8 +69,6 @@ main:
 	bl		judge
 	bl		shift
 	bl		bit
-	cmp		r9,	#8
-	beq		game_over
 disp:
 	ldr		r6,		[r0, #GPFSEL1]	@ r6 current
 	ldr		r1,		[r2]		@ load target time
