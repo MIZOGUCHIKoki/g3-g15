@@ -1,52 +1,55 @@
 @ Free & Reserved Register
-@ 0 {r0} : Free
-@ 0 {r1} : Free
-@ 0 {r2} : Free
-@ 0 {r3} : Free
-@ 0 {r4} : Free
-@ 0 {r5} : Free
-@ 0 {r6} : Free
+@ X {r0} : TIMER_BASE
+@ X {r1} : read_switch
+@ X {r2} : target_time header address.
+@ X {r3} : led_on_time control
+@ X {r4} : led_off_time control
+@ X {r5} : led_on times control
+@ X {r6} : =count
 @ X {r7} : 現在のスコアを管理
 @ X {r8} : OK Flag
-@ 0 {r9} : Free
-@ 0 {r10} : Miss Flag
-@ 0 {r11} : 八行目読み出し
-@ 0 {r12} : =frame_buffer
+@ 0 {r9} : bit_buffer time
+@ X {r10} : Miss Flag
+@ 0 {r11} : Free
+@ 0 {r12} : Free
 	
 	.include	"common.h"
 	.section	.text
 	.global		judge
 judge:
-	push	{r0-r7, r14}
+	push	{r3-r6, r14}
 
+	@8行目読み出し & read_switch
 	ldr	r12,	=frame_buffer
 	ldrb	r11,	[r12, #7]
-	bl	read_switch		@r1
+	bl	read_switch
 
+	@clear_flag test
 	cmp	r8,	#0
 	bne	clear_led
 
-if1:	
+if1:	@switch1 test
 	cmp	r1,	#1
 	bne	if2
 	tst	r11,	#224	@11100000
 	bne	jumpclear
 	b	jumpmiss
 
-if2:
+if2:	@switch2 test
 	cmp	r1,	#2
 	bne	if3
 	tst	r11,	#7	@00000111
 	bne	jumpclear
 	b	jumpmiss
 	
-if3:
+if3:	@no switch test
 	tst	r11,	#224
 	beq	end
 	tst	r11,	#7
 	beq	end
 	b	jumpmiss
 
+@first success
 jumpclear:
 	bl	clear
 	ldr	r12,	[r0, #GPFSEL1]
@@ -59,11 +62,14 @@ jumpclear:
 	str	r12,	[r11]
 	
 	b	end
+
+@first miss
 jumpmiss:
 	cmp	r10,	#0
 	bleq	miss
 	b	end
 
+@led_on and off
 clear_led:
 	ldr	r6,	=count
 	ldr	r5,	[r6]
@@ -77,9 +83,7 @@ clear_led:
 	cmp	r3,	r12
 	blcc	led_on
 	addcc	r3,	r3,	r11
-	strcc	r3,	[r2, #4]
-	@addcc	r5,	r5,	#1
-	@strcc	r5,	[r6]	
+	strcc	r3,	[r2, #4]	
 
 	ldr	r4,	[r2, #8]
 	cmp	r4,	r12
@@ -91,12 +95,12 @@ clear_led:
 	
 	
 end:
-	pop	{r0-r7, r14}
+	pop	{r3-r6, r14}
 	bx	r14
 
 	
 	.section	.data
-count:
+count:	@led_on time control
 	.word	0
 	
 
