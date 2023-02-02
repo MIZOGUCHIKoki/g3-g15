@@ -26,7 +26,7 @@ clear:
 
 
 miss:
-	push	{r10}
+	push	{r12}
 	
 	mov	r10,#1
 	@r7のスコアから１引く
@@ -37,5 +37,5 @@ miss:
 	lsl	r11,r11,#1
 	strb	r11,[r10]
 	
-	pop	{r10}
+	pop	{r12}
 	bx	r14
