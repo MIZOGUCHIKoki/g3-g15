@@ -59,11 +59,13 @@ ON:
 
 	.section	.data
 	.global		soundData_2, sound_longData_2, time_2, sound2_2, sound_long_2, count_2
-soundData_2:
 	@シ4,ド5,レ5,ミ5,ファ5
+soundData_2:
 	.word	19472, 18355, 16354, 14567, 13753
+	
 sound_longData_2:
 	.word	700000, 230000, 120000, 350000
+
 time_2:
 	.word 	0x00, 0x00
 
@@ -71,8 +73,6 @@ sound2_2:
 	.byte	0,4,4,4,3,2,1
 sound_long_2:
 	.byte	0,0,3,0,0,3,3
-
 count_2:
 	.byte	0
-	
-@マリオが死んだ時の音楽：シ4,ファ5,ファ5,ファ5,ミ5,レ5,ド5
+	@マリオが死んだ時の音楽：シ4,ファ5,ファ5,ファ5,ミ5,レ5,ド5
