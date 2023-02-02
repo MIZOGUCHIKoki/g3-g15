@@ -23,8 +23,8 @@ judge:
 	ldr	r12,	=frame_buffer
 	ldrb	r11,	[r12, #7]
 	bl	read_switch
-
-	@clear_flag test
+	
+	@OK_flag test
 	cmp	r8,	#0
 	bne	clear_led
 
@@ -65,8 +65,7 @@ jumpclear:
 
 @first miss
 jumpmiss:
-	cmp	r10,	#0
-	bleq	miss
+	bl	miss
 	b	end
 
 @led_on and off
