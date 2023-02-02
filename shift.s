@@ -27,7 +27,9 @@ shift:
 	add	r9, r9, #1
 	cmp	r9, #48
 	moveq	r9, #0
-	mov		r8,	#0		@ update OK Flag
+@ Update flags
+	mov		r8,		#0		@ OK Flag
+	mov		r10,	#0		@ Miss Flag
 @frame_buffer shift 
 	ldr	r6, =frame_buffer
 	mov	r10, #6
