@@ -69,11 +69,6 @@ jumpclear:
 @first miss
 jumpmiss:
 	bl	miss
-	ldr	r12,	=frame_buffer
-	ldrb	r11,	[r12]
-	lsl	r11,	r11,	#1
-	strb	r11,	[r12]
-	
 	b	end
 
 @led_on and off
