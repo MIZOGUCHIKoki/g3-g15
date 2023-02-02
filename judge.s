@@ -17,7 +17,7 @@
 	.section	.text
 	.global		judge
 judge:
-	push	{r14}
+	push	{r0-r7, r14}
 
 	ldr	r12,	=frame_buffer
 	ldrb	r11,	[r12, #7]
@@ -54,15 +54,23 @@ jumpclear:
 	str	r12,	[r2, #4]
 	add	r12,	r12,	r11
 	str	r12,	[r2, #8]
+	mov	r12,	#3
+	ldr	r11,	=count
+	str	r12,	[r11]
 	
 	b	end
 jumpmiss:
-	bl	miss
+	cmp	r10,	#0
+	bleq	miss
 	b	end
 
 clear_led:
 	ldr	r6,	=count
-	ldrb	r5,	[r6]
+	ldr	r5,	[r6]
+	
+	cmp	r5,	#0
+	beq	end
+	
 	ldr	r11,	=200000	
 	ldr	r12,	[r0, #GPFSEL1]		@current_time
 	ldr	r3,	[r2, #4]		@led_on_time
@@ -70,31 +78,26 @@ clear_led:
 	blcc	led_on
 	addcc	r3,	r3,	r11
 	strcc	r3,	[r2, #4]
-	addcc	r5,	r5,	#1
-	strcc	r5,	[r6]	
+	@addcc	r5,	r5,	#1
+	@strcc	r5,	[r6]	
 
 	ldr	r4,	[r2, #8]
 	cmp	r4,	r12
 	blcc	led_off
 	addcc	r4,	r4,	r11
 	strcc	r4,	[r2, #8]
-	addcc	r5,	r5,	#1
+	subcc	r5,	r5,	#1
 	strcc	r5,	[r6]
-
-	cmp	r5,	#6
-	moveq	r5,	#0
-	streq	r5,	[r6]
 	
 	
 end:
-	
-	pop	{r14}
+	pop	{r0-r7, r14}
 	bx	r14
 
 	
 	.section	.data
 count:
-	.byte	0
+	.word	0
 	
 
 	
