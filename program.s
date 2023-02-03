@@ -77,7 +77,7 @@ main:
 	str		r6,		[r3, #20]	@ update opinter
 
 blp:
-  @bl 		sound
+  bl 		sound
   bl		judge
   bl		shift
   bl		bit
