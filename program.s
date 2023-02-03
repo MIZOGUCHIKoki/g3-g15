@@ -41,10 +41,6 @@ reset:
   ldr		r4,		=PWM_BASE
   mov		r7,		#0
   str		r7,		[r4, #PWM_DAT2]
-  ldr		r4,		=0xffff
-wloop:
-  subs	r4,		r4,	#1
-  bne		wloop
 
   mov		r4,		#0						@ display_row
   mov		r7,		#8						@ 現在スコア
@@ -74,24 +70,20 @@ endp:
   b			main
 
 game_over:
-	@ldr		r1,		=frame_buffer
-	@ldr		r6,		=frame_init
-	@ldr		r11,	[r6]
-	@str		r11,	[r1]
-	@ldr		r11,	[r6, #4]
-	@str		r11,	[r1, #4]
-  ldr		r12,	=frame_init
+  ldr		r12,	=frame_go
   ldr		r11,	=frame_buffer
   ldr		r6,		[r12]
   str		r6,		[r11]
   ldr		r6,		[r12, #4]
   str		r6,		[r11, #4]
-
+	bl		led_on
+gloop:
   bl		read_switch
   cmp		r1,		#4			@ SW3 == 1
   beq		reset
 	bl		disp
-  b			game_over
+	bl		display_row
+  b			gloop
 
 
 disp:
@@ -108,6 +100,7 @@ disp:
 	bx		r14
 
 frequency:
+  .word	500*1000	@ 0.50 sec (for debug)
   .word	1500*1000	@ 1.50 sec
   .word	1250*1000	@	1.25 sec
   .word	1000*1000	@ 1.00 sec
