@@ -28,9 +28,6 @@ judge:
 	cmp	r8,	#0
 	bne	clear_led
 
-	cmp	r10,	#0
-	bne	end
-
 if1:	@switch1 test
 	cmp	r1,	#1
 	bne	if2
@@ -70,7 +67,8 @@ jumpclear:
 
 @first miss
 jumpmiss:
-	bl	miss
+	cmp	r10,	#0
+	bleq	miss
 	b	end
 
 @led_on and off
