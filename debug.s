@@ -1,4 +1,6 @@
 @	debug_on
+@ 	Turn LED ON only between 0xff
+@ debug_momentarily
 @ 	Turn LED ON momentarily
 	.include	"common.h"
 	.section	.text
