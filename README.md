@@ -9,6 +9,8 @@
 	Judge from switch and display status.
 - `result.s`
 	Flushing LED and operate LED gauge.(display row1)
+- `gameover.s`
+	Called when game over. Play sound and Accept reset button.
 ## debug and display
 - `common.h`
 	- Definition collection.
