@@ -22,9 +22,18 @@ shift:
 				cmp	r6, r5
 				bxcc	r14
 @ Initialize flags
-				mov		r8,		#0
+				cmp		r10, #1
+				bne		shiftp
+				cmp		r8, #0
+				bne		shiftp
+				sub		r7, r7, #1
+				ldr		r12, =frame_buffer
+				ldrb	r11,[r12]
+				lsl		r11,r11,#1
+				strb	r11,[r12]	
+shiftp:
+				mov		r8,		#0		@OK  Flag
 				str		r8,		[r3, #16]
-				mov		r8,		#0		@ OK Flag
 				mov		r10,	#0		@ Miss Flag
 
 				push	{r10}
