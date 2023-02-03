@@ -1,7 +1,7 @@
 .include "common.h"
 .section .text
-.global sound_2
-sound_2:
+.global sound
+sound:
 push  {r0-r12,r14}
 bl    settings
 
