@@ -43,7 +43,7 @@ shiftp:
 				ldr	r10, [r6]
 				add	r5, r5, r10
 				add	r9, r9, #1
-				cmp	r9, #48
+				cmp	r9, #64
 				moveq	r9, #0
 @frame_buffer shift 
 				ldr	r6, =frame_buffer

@@ -30,6 +30,9 @@ reset:
   ldr		r4,		=count
   mov		r7,		#0
   strb	r7,		[r4]
+	@ Reset frequency
+	mov		r4,		#0
+	str		r4,		[r3, #20]
   @ Reset display
   ldr		r4,		=frame_init
   ldr		r8,		=frame_buffer
@@ -89,11 +92,15 @@ endp:
 game_over:
 	bl		led_on
 	mov		r9,		#0
+	mov		r12,	#24
+	str		r12,	[r3, #20]
 gloop:
   bl		read_switch
   cmp		r1,		#4			@ SW3 == 1
   beq		reset
+
 	bl		go_bit
+	bl		shift
 	bl		disp
 	bl		display_row
   b			gloop
@@ -120,6 +127,7 @@ frequency:
   .word	750*1000	@ 0.75 sec	#12
 	.word	0					@ flag			#16
 	.word	0					@ pointer		#20
+	.word 100*1000	@ 0.20 sec	#24
 target_time:
   .word	0 @ display_low
   .word	0 @ led_flash_on

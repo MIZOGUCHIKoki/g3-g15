@@ -20,7 +20,7 @@ bit:
 	bx		r14
 go_bit:
 	push	{r10}
-	ldr		r11,	=bit_buffer
+	ldr		r11,	=bit_buffer_2
 	ldr		r12,	=frame_buffer
 	ldrb	r10,	[r11, r9]
 	mov		r6,		#1
