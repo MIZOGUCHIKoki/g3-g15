@@ -55,11 +55,28 @@ reset:
   ldr		r6,		[r0, #GPFSEL1]
   ldr		r1,		[r3]		@ from frequency
   add		r5,		r6,	r1	@ set target time
+
 main:
   @ judge game_over
   cmp		r7,		#0
   beq		game_over
 
+	@ frequency set
+	bl		read_switch
+	cmp		r1,		#8
+	bne		blp
+	ldr		r6,		[r3, #16]	@ test flag
+	cmp		r6,		#1
+	beq		blp
+	mov		r6,		#1
+	str		r6,		[r3, #16]	@ update flag
+	ldr		r6,		[r3, #20]	@ load opinter
+	add		r6,		r6,		#4
+	cmp		r6,		#16
+	moveq	r6,		#0
+	str		r6,		[r3, #20]	@ update opinter
+
+blp:
   @bl 		sound
   bl		judge
   bl		shift
@@ -99,13 +116,14 @@ disp:
   moveq	r4,		#0
 	bx		r14
 
-frequency:
-  .word	500*1000	@ 0.50 sec (for debug)
-  .word	1500*1000	@ 1.50 sec
-  .word	1250*1000	@	1.25 sec
-  .word	1000*1000	@ 1.00 sec
-  .word	750*1000	@ 0.75 sec
   .section	.data
+frequency:
+  .word	1500*1000	@ 1.50 sec	#0
+  .word	1250*1000	@	1.25 sec	#4
+  .word	1000*1000	@ 1.00 sec	#8
+  .word	750*1000	@ 0.75 sec	#12
+	.word	0					@ flag			#16
+	.word	0					@ pointer		#20
 target_time:
   .word	0 @ display_low
   .word	0 @ led_flash_on
