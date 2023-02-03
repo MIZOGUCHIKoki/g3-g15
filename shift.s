@@ -13,40 +13,40 @@
 @   {r11}: free.
 @ X {r12}: frame_buffer 'ldr or str'
 	
-.include "common.h"
-.section .text
-.global shift
+				.include "common.h"
+				.section .text
+				.global shift
 shift:
 @frame_buffer shift
-ldr	r6, [r0, #GPFSEL1]
-cmp	r6, r5
-bxcc	r14
+				ldr	r6, [r0, #GPFSEL1]
+				cmp	r6, r5
+				bxcc	r14
 @ Initialize flags
-mov		r8,		#0
-str		r8,		[r3, #16]
-mov		r8,		#0		@ OK Flag
-mov		r10,	#0		@ Miss Flag
+				mov		r8,		#0
+				str		r8,		[r3, #16]
+				mov		r8,		#0		@ OK Flag
+				mov		r10,	#0		@ Miss Flag
 
-push	{r10}
+				push	{r10}
 @ update target time
-ldr	r11,	[r3, #20]
-add	r6,	r3,	r11
-ldr	r10, [r6]
-add	r5, r5, r10
-add	r9, r9, #1
-cmp	r9, #48
-moveq	r9, #0
+				ldr	r11,	[r3, #20]
+				add	r6,	r3,	r11
+				ldr	r10, [r6]
+				add	r5, r5, r10
+				add	r9, r9, #1
+				cmp	r9, #48
+				moveq	r9, #0
 @frame_buffer shift 
-ldr	r6, =frame_buffer
-mov	r10, #6
-frame_shift:
+				ldr	r6, =frame_buffer
+				mov	r10, #6
+				frame_shift:
 @this frame_shift chage from B~G to C~H.
-ldrb	r12, [r6, r10]
-add	r11, r10, #1
-strb	r12, [r6, r11]
-sub	r10, r10, #1
-cmp	r10, #0
-bne	frame_shift
+				ldrb	r12, [r6, r10]
+				add	r11, r10, #1
+				strb	r12, [r6, r11]
+				sub	r10, r10, #1
+				cmp	r10, #0
+				bne	frame_shift
 END:
-pop	{r10}
-bx	r14
+				pop	{r10}
+				bx	r14
