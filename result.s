@@ -26,17 +26,5 @@ clear:
 
 
 miss:	
-	cmp		r10,	#1
-	bne		then
-	bx		r14
-then:
 	mov		r10,	#1
-	@r7のスコアから１引く
-	sub		r7,		r7,	#1
-	@(A)の体力ゲージを左から一つ減らす（frame_bufferに書き込む）
-	ldr		r12,=frame_buffer
-	ldrb	r11,[r12]
-	lsl		r11,r11,#1
-	strb	r11,[r12]
-	
 	bx	r14
