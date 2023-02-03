@@ -29,7 +29,7 @@ reset:
   @ Reset sound
   ldr		r4,		=count
   mov		r7,		#0
-  strb	r7,		[r4]
+  str		r7,		[r4]
 	@ Reset frequency
 	mov		r4,		#0
 	str		r4,		[r3, #20]
@@ -90,6 +90,13 @@ endp:
   b			main
 
 game_over:
+  ldr		r11,		=frame_go
+  ldr		r12,		=frame_buffer
+  ldr		r6,		[r12]
+  str		r6,		[r11]
+  ldr		r6,		[r12, #4]
+  str		r6,		[r11, #4]
+
 	bl		led_on
 	mov		r9,		#0
 	mov		r12,	#24
@@ -98,7 +105,7 @@ gloop:
   bl		read_switch
   cmp		r1,		#4			@ SW3 == 1
   beq		reset
-
+	bl		gameover
 	bl		go_bit
 	bl		shift
 	bl		disp
