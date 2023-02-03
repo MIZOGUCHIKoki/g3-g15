@@ -64,30 +64,48 @@ main:
   cmp		r7,		#0
   beq		game_over
 
-  bl 		sound
+  @bl 		sound
   bl		judge
   bl		shift
   bl		bit
+endp:
+	bl		disp
+  bl		display_row
+  b			main
+
+game_over:
+	@ldr		r1,		=frame_buffer
+	@ldr		r6,		=frame_init
+	@ldr		r11,	[r6]
+	@str		r11,	[r1]
+	@ldr		r11,	[r6, #4]
+	@str		r11,	[r1, #4]
+  ldr		r12,	=frame_init
+  ldr		r11,	=frame_buffer
+  ldr		r6,		[r12]
+  str		r6,		[r11]
+  ldr		r6,		[r12, #4]
+  str		r6,		[r11, #4]
+
+  bl		read_switch
+  cmp		r1,		#4			@ SW3 == 1
+  beq		reset
+	bl		disp
+  b			game_over
+
+
 disp:
   ldr		r6,		[r0, #GPFSEL1]	@ r6 current
   ldr		r1,		[r2]		@ load target time
   cmp		r6,		r1			@	Current, Target
-  bcc		endp					@ Currnet < Target
+  bxcc	r14						@ Currnet < Target
   mov		r11,	#dpr	
   add		r6,		r1,	r11	@ update target time
   str		r6,		[r2]		@ update target time
   add		r4,		r4,	#1
   cmp		r4,		#8
   moveq	r4,		#0
-endp:
-  bl		display_row
-  b			main
-
-game_over:
-  bl		read_switch
-  cmp		r1,		#4			@ SW3 == 1
-  beq		reset
-  b			game_over
+	bx		r14
 
 frequency:
   .word	1500*1000	@ 1.50 sec
@@ -110,3 +128,5 @@ bit_buffer:
   .byte 0x0e, 0xd0, 0x00, 0x15, 0x0a, 0x90, 0x00, 0x28
 frame_init:
   .byte	0xff, 0, 0, 0, 0, 0, 0, 0
+frame_go:
+	.byte	0x1, 0x2, 0x4, 0x8, 0x10, 0x20, 0x40, 0x80
