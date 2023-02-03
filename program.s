@@ -16,7 +16,7 @@
   .include	"common.h"
   .section	.init
   .global		_start, frame_buffer, frequency, bit_buffer
-  _start:
+_start:
   mov		sp,		#STACK
   bl		settings
   ldr		r0,		=TIMER_BASE
@@ -25,7 +25,7 @@
   ldr		r4,		[r0, #GPFSEL1]
   ldr		r7,		=time
   str		r4,		[r7]
-  reset:
+reset:
   @ Reset sound
   ldr		r4,		=count
   mov		r7,		#0
@@ -42,7 +42,7 @@
   mov		r7,		#0
   str		r7,		[r4, #PWM_DAT2]
   ldr		r4,		=0xffff
-  wloop:
+wloop:
   subs	r4,		r4,	#1
   bne		wloop
 
@@ -59,7 +59,7 @@
   ldr		r6,		[r0, #GPFSEL1]
   ldr		r1,		[r3]		@ from frequency
   add		r5,		r6,	r1	@ set target time
-  main:
+main:
   @ judge game_over
   cmp		r7,		#0
   beq		game_over
@@ -68,7 +68,7 @@
   bl		judge
   bl		shift
   bl		bit
-  disp:
+disp:
   ldr		r6,		[r0, #GPFSEL1]	@ r6 current
   ldr		r1,		[r2]		@ load target time
   cmp		r6,		r1			@	Current, Target
@@ -79,34 +79,34 @@
   add		r4,		r4,	#1
   cmp		r4,		#8
   moveq	r4,		#0
-  endp:
+endp:
   bl		display_row
   b			main
 
-  game_over:
+game_over:
   bl		read_switch
   cmp		r1,		#4			@ SW3 == 1
   beq		reset
   b			game_over
 
-  frequency:
+frequency:
   .word	1500*1000	@ 1.50 sec
   .word	1250*1000	@	1.25 sec
   .word	1000*1000	@ 1.00 sec
   .word	750*1000	@ 0.75 sec
   .section	.data
-  target_time:
+target_time:
   .word	0 @ display_low
   .word	0 @ led_flash_on
   .word	0 @ led_flash_off
-  frame_buffer:
+frame_buffer:
   .byte	0xff, 0, 0, 0, 0, 0, 0, 0
-  bit_buffer:
+bit_buffer:
   .byte 0x28, 0x48, 0x14, 0x38, 0xb0, 0x90, 0x68, 0x90
   .byte 0x68, 0x00, 0x14, 0x38, 0x0a, 0x15, 0x00, 0x00
   .byte 0x0c, 0x1b, 0x38, 0x90, 0x68, 0x90, 0x0c, 0x68
   .byte 0x00, 0x15, 0x00, 0x38, 0x00, 0x0a, 0x00, 0x48
   .byte 0x38, 0x19, 0x98, 0x14, 0x0c, 0x15, 0x48, 0x0c
   .byte 0x0e, 0xd0, 0x00, 0x15, 0x0a, 0x90, 0x00, 0x28
-  frame_init:
+frame_init:
   .byte	0xff, 0, 0, 0, 0, 0, 0, 0
