@@ -87,6 +87,7 @@ game_over:
   ldr		r6,		[r12, #4]
   str		r6,		[r11, #4]
 
+	bl		led_on
   bl		read_switch
   cmp		r1,		#4			@ SW3 == 1
   beq		reset
@@ -98,6 +99,7 @@ disp:
   ldr		r6,		[r0, #GPFSEL1]	@ r6 current
   ldr		r1,		[r2]		@ load target time
   cmp		r6,		r1			@	Current, Target
+	bl		led_on
   bxcc	r14						@ Currnet < Target
   mov		r11,	#dpr	
   add		r6,		r1,	r11	@ update target time
@@ -105,9 +107,11 @@ disp:
   add		r4,		r4,	#1
   cmp		r4,		#8
   moveq	r4,		#0
+	bl		led_off
 	bx		r14
 
 frequency:
+	.word	500*1000	@ 0.50 sec (for debug)
   .word	1500*1000	@ 1.50 sec
   .word	1250*1000	@	1.25 sec
   .word	1000*1000	@ 1.00 sec
