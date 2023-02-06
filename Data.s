@@ -1,3 +1,9 @@
+@ちびまる子ちゃんの曲が入っています。
+@sound_data:音階
+@rhythm_data:音符の種類
+@melody:sound_dataに番号をふったもの
+@rhythm:音符に番号をふったもの
+	
 	.section	.data
 	.global		melody, rhythm, sound_data, rhythm_data
 
