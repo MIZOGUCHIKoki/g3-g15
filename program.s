@@ -100,6 +100,10 @@ game_over:
   ldr		r6,		[r12, #4]
   str		r6,		[r11, #4]
 
+	ldr		r6,		[r0, #GPFSEL1]
+	ldr		r12,	=time_2
+	str		r6,		[r12]
+
 	bl		led_on
 	mov		r9,		#0
 	mov		r12,	#24
