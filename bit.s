@@ -28,11 +28,9 @@ go_bit:
 	pop		{r10}
 	bx		r14
 st_bit:
-	push	{r10}
 	ldr		r11,	=frame_st
 	ldr		r12,	=frame_buffer
 	ldrb	r10,	[r11, r9]
 	mov		r6,		#1
 	strb	r10,	[r12, r6]
-	pop		{r10}
 	bx		r14
