@@ -20,25 +20,37 @@ gameover:
 	@r10鳴らしたいリズムを持つレジスタ
 	@r11countの数ldr,strする用
 
+	@gameover専用
+	ldr r11 , [r7] 
+	cmp	r11 , #9	
+	popeq {r0-r12,r14}
+	bxeq	r14
+
 	ldr r8 , [r1]   @音を鳴らす目標時刻をldr
 	@音を鳴らす時刻かどうかを確認
 	cmp r2 , r8     @r2のが大の時,音を鳴らす
 	bcc		mute
-	ldr r11 , [r7] 
 	ldr r9 , [r3, r11, lsl #2]  
 	ldr r10, [r4, r11, lsl #2]
 	ldr r9 , [r5, r9 , lsl #2]
 	ldr r10, [r6, r10, lsl #2]
 	add r11, r11, #1  @count更新
-	cmp	r11, #7
-	moveq r11, #0
+	@cmp	r11, #9
+	@moveq r11, #0
 	str r11, [r7]     @count更新後データstr
 	
 	@音を鳴らす
+  cmp	r9 , #0
+	bne	play	 
+	str	r9 , [r12, #PWM_DAT2]
+	b		time_apData
+	
+play:	
 	str r9 , [r12, #PWM_RNG2]
 	lsr r9 , r9, #1   @デゥーティー比を1/2
 	str r9 , [r12, #PWM_DAT2]
 	@r0-r8,r10,r12は変更禁止 
+time_apData:	
 	add r9 , r8, r10
 	str r9 , [r1, #0]   @音符の長さ
 	mov r10, r10, lsr #1@実際になっている時間 
