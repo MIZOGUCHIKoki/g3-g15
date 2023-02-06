@@ -2,8 +2,8 @@
 .section .text
 .global sound
 sound:
-push  {r0-r12,r14}
-bl    settings
+	push  {r0-r12,r14}
+	bl    settings
 
   ldr r0 , =TIMER_BASE  @変更しない
   ldr r12, =PWM_BASE    @変更しない
@@ -35,11 +35,18 @@ bl    settings
   str r11, [r7]     @count更新後データstr
     
   @音を鳴らす
-  str r9 , [r12, #PWM_RNG2]
-  lsr r9 , r9, #1   @デゥーティー比を1/2
+  cmp	r9 , #0
+	bne	play	 
+	str	r9 , [r12, #PWM_DAT2]
+	b		time_apData
+
+play:	
+	str r9 , [r12, #PWM_RNG2]
+  lsr r9 , r9, #1   @デューティー比を1/2
   str r9 , [r12, #PWM_DAT2]
  @r0-r8,r10,r12は変更禁止 
-  add r9 , r8, r10
+time_apData:
+	add r9 , r8, r10
   str r9 , [r1, #0]   @音符の長さ
   mov r10, r10, lsr #1@実際になっている時間 
   add r9 , r8, r10    
