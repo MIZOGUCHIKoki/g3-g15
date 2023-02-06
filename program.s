@@ -30,6 +30,9 @@ reset:
   ldr		r4,		=count
   mov		r7,		#0
   str		r7,		[r4]
+	ldr		r4,		=time
+	ldr		r7,		[r0, #GPFSEL1]
+	str		r7,		[r4]
 	@ Reset frequency
 	mov		r4,		#0
 	str		r4,		[r3, #20]
