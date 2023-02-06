@@ -22,40 +22,11 @@ _start:
   ldr		r0,		=TIMER_BASE
   ldr		r2,		=target_time	@ 目標時刻先頭アドレス
   ldr		r3,		=frequency		@ 周期先頭データ先頭データ
-	mov		r4,		#0
-  mov		r9,		#0						@ bit_buffer進捗管理
-	str		r4,		[r2, #12]			@ update target time
-reset:
-@ --- Start_display ---
-start_dsiplay:
-  ldr		r11,		=frame_st
-  ldr		r12,		=frame_buffer
-  ldr		r6,		[r12]
-  str		r6,		[r11]
-  ldr		r6,		[r12, #4]
-  str		r6,		[r11, #4]
-	ldr		r6,		[r0, #GPFSEL1]
-	ldr		r11,	=2000000
-	add		r12,	r11,	r6
-	str		r12,	[r2, #12]			@ update target time
-
-	mov		r11,	#28						@ set frequency (pointer)
-	mov		r9,		#0
-	str		r11,	[r3, #20]
-sloop:
-	bl		led_on
-	bl		st_bit
-	bl		shift
-	bl		disp
-	ldr		r6,		[r0, #GPFSEL1]
-	ldr		r12,	[r2, #12]
-	cmp		r6,		r12
-	bcc		sloop
-	bl		led_off
-@ Reset sound
   ldr		r4,		[r0, #GPFSEL1]
   ldr		r7,		=time
   str		r4,		[r7]
+reset:
+  @ Reset sound
   ldr		r4,		=count
   mov		r7,		#0
   str		r7,		[r4]
@@ -65,20 +36,17 @@ sloop:
 	ldr		r4,		=count_2
 	mov		r7,		#0
 	str		r7,		[r4]
-	ldr		r4,		=count3
-	mov		r7,		#0
-	str		r7,		[r4]
-@ Reset frequency
+	@ Reset frequency
 	mov		r4,		#0
 	str		r4,		[r3, #20]
-@ Reset display
+  @ Reset display
   ldr		r4,		=frame_init
   ldr		r8,		=frame_buffer
   ldr		r7,		[r4]
   str		r7,		[r8]
   ldr		r7,		[r4, #4]
   str		r7,		[r8, #4]
-@ Stop sound
+  @ Stop sound
   ldr		r4,		=PWM_BASE
   mov		r7,		#0
   str		r7,		[r4, #PWM_DAT2]
@@ -87,16 +55,15 @@ sloop:
   mov		r7,		#8						@ 現在スコア
   mov		r8,		#0						@ OK Flag
   mov		r9,		#0						@ bit_buffer進捗管理
-@	display_low 初期目標時刻設定
+  @	display_low 初期目標時刻設定
   ldr		r6,		[r0, #GPFSEL1]
   mov		r1,		#dpr
   add		r6,		r6,	r1
   str		r6,		[r2]
-@ 更新目標時刻
+  @ 更新目標時刻
   ldr		r6,		[r0, #GPFSEL1]
   ldr		r1,		[r3]		@ from frequency
   add		r5,		r6,	r1	@ set target time
-
 main:
   @ judge game_over
   cmp		r7,		#0
@@ -135,30 +102,23 @@ endp:
   b			main
 
 game_over:
-	ldr r6, =GPIO_BASE
-	ldr	r1, =(1 << ROW1_PORT | 1 << ROW2_PORT | 1 << ROW3_PORT | 1 << ROW4_PORT | 1 << ROW5_PORT | 1 << ROW6_PORT | 1 << ROW7_PORT | 1 << ROW8_PORT)
-	str		r1, 	[r6, #GPSET0]
-
 	ldr		r6,		[r0, #GPFSEL1]
 	ldr		r12,	=time_2
 	str		r6,		[r12]
 
-	bl		led_on
 	mov		r9,		#0
 	mov		r12,	#24
 	str		r12,	[r3, #20]
 gloop:
   bl		read_switch
   cmp		r1,		#4			@ SW3 == 1
-	beq		led_off
   beq		reset
 	bl		gameover
 	bl		go_bit
 	bl		shift
 	bl		disp
 	bl		display_row
-  b			gloop
-
+	b			gloop
 game_clear:
   ldr		r6,		[r0, #GPFSEL1]
 	ldr		r12,	=time3
