@@ -136,9 +136,9 @@ disp:
   .section	.data
 frequency:
   .word	1500*1000	@ 1.50 sec	#0
-  .word	1250*1000	@	1.25 sec	#4
-  .word	1000*1000	@ 1.00 sec	#8
-  .word	750*1000	@ 0.75 sec	#12
+  .word	1000*1000	@	1.00 sec	#4
+  .word	500*1000	@ 0.50 sec	#8
+  .word	200*1000	@ 0.20 sec	#12
 	.word	0					@ flag			#16
 	.word	0					@ pointer		#20
 	.word 100*1000	@ 0.20 sec	#24
