@@ -32,8 +32,8 @@ sound:
 	add r11, r11, #1  @count更新
 	ldr	r4,	=melody
 	ldrb	r5,	[r4, r11]
-	cmp	r5,	#30
-	moveq r11, #0
+	@cmp	r5,	#30
+	@moveq r11, #0
   str r11, [r7]     @count更新後データstr
     
   @音を鳴らす

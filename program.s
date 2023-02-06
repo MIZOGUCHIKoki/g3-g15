@@ -65,6 +65,9 @@ sloop:
 	ldr		r4,		=count_2
 	mov		r7,		#0
 	str		r7,		[r4]
+	ldr		r4,		=count3
+	mov		r7,		#0
+	str		r7,		[r4]
 @ Reset frequency
 	mov		r4,		#0
 	str		r4,		[r3, #20]
@@ -102,7 +105,7 @@ main:
 	ldr		r11,	=count
 	ldr		r12,	=melody
 	ldr		r11,  [r11]
-	ldr		r11,	[r12, r11]
+	ldrb	r11,	[r12, r11]
 	cmp		r11, #30
 	beq		game_clear
 
@@ -158,7 +161,7 @@ gloop:
 
 game_clear:
   ldr		r6,		[r0, #GPFSEL1]
-	ldr		r12,	=time_3
+	ldr		r12,	=time3
 	str		r6,		[r12]
 gcloop:	
   bl		read_switch

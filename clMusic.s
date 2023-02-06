@@ -5,6 +5,7 @@ clMusic:
 	push  {r0-r12,r14}
 	bl    settings
 
+	bl	led_on
 	ldr r0 , =TIMER_BASE  @変更しない
 	ldr r12, =PWM_BASE    @変更しない
 	ldr r1 , =time3       @目標時刻いじる際に使用
@@ -18,7 +19,15 @@ clMusic:
 	@r8は目標時刻の更新に使用する
 	@r9鳴らしたい音を持つレジスタ
 	@r10鳴らしたいリズムを持つレジスタ
-	@r11countの数ldr,strする用
+
+
+	@clMusic専用
+	ldr r11 , [r7] 
+	cmp	r11 , #11	
+	moveq r9 , #0
+	streq r9 , [r12, #PWM_DAT2]
+	popeq {r0-r12,r14}
+	bxeq	r14
 
 	ldr r8 , [r1]   @音を鳴らす目標時刻をldr
 	@音を鳴らす時刻かどうかを確認
@@ -32,8 +41,8 @@ clMusic:
 	add r11, r11, #1  @count更新
 	ldr	r4,	=Melody
 	ldr	r5,	[r4, r11, lsl #2]
-	cmp	r5,	#30
-	moveq r11, #0
+	@cmp	r5,	#30
+	@moveq r11, #0
 	str r11, [r7]     @count更新後データstr
 	
 	@音を鳴らす
