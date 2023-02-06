@@ -99,6 +99,13 @@ main:
   cmp		r7,		#0
   beq		game_over
 
+	ldr		r11,	=count
+	ldr		r12,	=melody
+	ldr		r11,  [r11]
+	ldr		r11,	[r12, r11]
+	cmp		r11, #30
+	beq		game_clear
+
 	@ frequency set
 	bl		read_switch
 	cmp		r1,		#8
@@ -154,6 +161,16 @@ gloop:
 	bl		display_row
   b			gloop
 
+game_clear:
+  ldr		r6,		[r0, #GPFSEL1]
+	ldr		r12,	=time_3
+	str		r6,		[r12]
+gcloop:	
+  bl		read_switch
+  cmp		r1,		#4			@ SW3 == 1
+  beq		reset
+	bl		clMusic
+	b			gcloop
 
 disp:
   ldr		r6,		[r0, #GPFSEL1]	@ r6 current
