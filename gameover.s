@@ -22,7 +22,9 @@ gameover:
 
 	@gameover専用
 	ldr r11 , [r7] 
-	cmp	r11 , #9	
+	cmp	r11 , #10	
+	moveq r9 , #0
+	streq r9 , [r12, #PWM_DAT2]
 	popeq {r0-r12,r14}
 	bxeq	r14
 
@@ -35,8 +37,6 @@ gameover:
 	ldr r9 , [r5, r9 , lsl #2]
 	ldr r10, [r6, r10, lsl #2]
 	add r11, r11, #1  @count更新
-	@cmp	r11, #9
-	@moveq r11, #0
 	str r11, [r7]     @count更新後データstr
 	
 	@音を鳴らす
