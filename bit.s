@@ -10,27 +10,20 @@
 	.section	.text
 	.global		bit, go_bit, st_bit
 bit:
-	push	{r10}
 	ldr		r11,	=bit_buffer
 	ldr		r12,	=frame_buffer
-	ldrb	r10,	[r11, r9]
-	mov		r6,		#1
-	strb	r10,	[r12, r6]
-	pop		{r10}
+	ldrb	r6,	[r11, r9]
+	strb	r6,	[r12, #1]
 	bx		r14
 go_bit:
-	push	{r10}
 	ldr		r11,	=frame_go
 	ldr		r12,	=frame_buffer
-	ldrb	r10,	[r11, r9]
-	mov		r6,		#1
-	strb	r10,	[r12, r6]
-	pop		{r10}
+	ldrb	r6,	[r11, r9]
+	strb	r6,	[r12, #1]
 	bx		r14
 st_bit:
 	ldr		r11,	=frame_st
 	ldr		r12,	=frame_buffer
-	ldrb	r10,	[r11, r9]
-	mov		r6,		#1
-	strb	r10,	[r12, r6]
+	ldrb	r6,	[r11, r9]
+	strb	r6,	[r12, #1]
 	bx		r14
