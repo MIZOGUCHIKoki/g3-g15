@@ -125,12 +125,15 @@ endp:
   b			main
 
 game_over:
-  ldr		r11,		=frame_go
-  ldr		r12,		=frame_buffer
-  ldr		r6,		[r12]
-  str		r6,		[r11]
-  ldr		r6,		[r12, #4]
-  str		r6,		[r11, #4]
+	ldr r6, =GPIO_BASE
+	ldr	r1, =(1 << ROW1_PORT | 1 << ROW2_PORT | 1 << ROW3_PORT | 1 << ROW4_PORT | 1 << ROW5_PORT | 1 << ROW6_PORT | 1 << ROW7_PORT | 1 << ROW8_PORT)
+	str	r1, [r6, #GPSET0]
+	ldr		r11,		=frame_go
+	ldr		r12,		=frame_buffer
+	ldr		r6,		[r12]
+	str		r6,		[r11]
+	ldr		r6,		[r12, #4]
+	str		r6,		[r11, #4]
 
 	ldr		r6,		[r0, #GPFSEL1]
 	ldr		r12,	=time_2
