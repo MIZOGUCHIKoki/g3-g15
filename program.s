@@ -26,6 +26,31 @@ _start:
   ldr		r7,		=time
   str		r4,		[r7]
 reset:
+	ldr		r6,		[r0, #GPFSEL1]
+	ldr		r11,	=2000000
+	add		r12,	r11,	r6
+	str		r12,	[r2, #12]			@ update target time
+
+	mov		r6,		#28
+	str		r6,		[r3, #20]			@ set frequency pointer
+
+	ldr		r6,		[r0, #GPFSEL1]
+	ldr		r11,	[r3, #28]
+	add		r5,		r6,		r11
+	bl		led_on
+	mov		r9,		#0
+	mov		r4,		#0
+start_display:
+	bl		st_bit
+	bl		shift
+	bl		disp
+	bl		display_row
+	ldr		r6,		[r0, #GPFSEL1]
+	ldr		r11,	[r2, #12]
+	cmp		r6,		r11
+	bcc		start_display
+
+	bl		led_off
   @ Reset sound
   ldr		r4,		=count
   mov		r7,		#0
@@ -34,6 +59,9 @@ reset:
 	ldr		r7,		[r0, #GPFSEL1]
 	str		r7,		[r4]
 	ldr		r4,		=count_2
+	mov		r7,		#0
+	str		r7,		[r4]
+	ldr		r4,		=count3
 	mov		r7,		#0
 	str		r7,		[r4]
 	@ Reset frequency
@@ -182,4 +210,11 @@ frame_init:
   .byte	0xff, 0, 0, 0, 0, 0, 0, 0
 frame_st:
 	@1,2,4,8,10,20,40,80
+	.byte	0xfe, 0xfd, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f
+	.byte	0xfe, 0xfd, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f
+	.byte	0xfe, 0xfd, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f
+	.byte	0xfe, 0xfd, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f
+	.byte	0xfe, 0xfd, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f
+	.byte	0xfe, 0xfd, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f
+	.byte	0xfe, 0xfd, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f
 	.byte	0xfe, 0xfd, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f
