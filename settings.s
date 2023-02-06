@@ -1,6 +1,6 @@
 	.include	"common.h"
 	.section	.text
-	.global		settings
+	.global		settings, reset
 settings:
 	ldr	r0,	=GPIO_BASE
 	ldr	r1, =GPFSEL_VEC0
