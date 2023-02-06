@@ -43,14 +43,10 @@ if2:	@switch2 test
 	b	jumpmiss
 	
 if3:	@no switch test
-	tst	r11,	#224
+	tst	r11,	#231	@11100111
 	beq	end
 	bne	jumpmiss
-	tst	r11,	#7
-	beq	end
-	bne	jumpmiss
-	@b	jumpmiss
-
+	
 @first success
 jumpclear:
 	bl	clear
