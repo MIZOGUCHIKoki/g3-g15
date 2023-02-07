@@ -8,7 +8,7 @@
 @ X {r12}: bit_b
 	.include	"common.h"
 	.section	.text
-	.global		bit, go_bit, st_bit
+	.global		bit, go_bit, st_bit, cl_bit
 bit:
 	ldr		r11,	=bit_buffer
 	ldr		r12,	=frame_buffer
@@ -23,6 +23,12 @@ go_bit:
 	bx		r14
 st_bit:
 	ldr		r11,	=frame_st
+	ldr		r12,	=frame_buffer
+	ldrb	r6,	[r11, r9]
+	strb	r6,	[r12, #1]
+	bx		r14
+cl_bit:
+	ldr		r11,	=frame_cl
 	ldr		r12,	=frame_buffer
 	ldrb	r6,	[r11, r9]
 	strb	r6,	[r12, #1]
