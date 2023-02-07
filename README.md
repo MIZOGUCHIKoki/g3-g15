@@ -11,6 +11,10 @@
 	Flushing LED and operate LED gauge.(display row1)
 - `gameover.s`
 	Called when game over. Play sound and Accept reset button.
+- `blMusic.s`
+	sound.sで呼び出して「おどるポンポコリン」を演奏させるためのデータが入っている。
+- `clMusic.s`
+	クリア時に流れるドラゴンクエストのレベルアップ音を演奏させる。
 ## debug and display
 - `common.h`
 	- Definition collection.
