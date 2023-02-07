@@ -15,6 +15,8 @@
 	sound.sで呼び出して「おどるポンポコリン」の演奏データ
 - `clMusic.s`
 	クリア時に流れるドラゴンクエストのレベルアップ音を演奏
+- `sound.s`
+  無条件で呼び出した上で，BGMを流す．データは`blMusic.s`に格納されている．
 ## debug and display
 - `common.h`
 	- Definition collection.
