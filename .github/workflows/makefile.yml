@@ -14,9 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: configure
-      run: ./configure
-
     - name: Install binutils-arm-none-eabi
       run: sudo apt install binutils-arm-none-eabi
       
